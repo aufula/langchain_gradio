@@ -53,7 +53,7 @@ def main():
     model_selection = gr.components.Dropdown(
         choices=["gpt-4", "gpt-3.5-turbo"],
         label="Select a GPT Model",
-        value="gpt-4",
+        value="gpt-3.5-turbo",
     )
 
     user_input = gr.components.Textbox(
