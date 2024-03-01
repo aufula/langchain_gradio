@@ -77,7 +77,7 @@ def main():
         fn=partial(get_response, chatbot),
         inputs=inputs,
         outputs=[output_history],
-        title="Chatbot",
+        title="",
         description="A simple chatbot using GPT-4 and Gradio with conversation history",
         allow_flagging="never",
     )
