@@ -46,7 +46,7 @@ def main():
     api_key_input = gr.components.Textbox(
         lines=1,
         label="Enter OpenAI API Key",
-        value=api_key,
+        value="",
         type="password",
     )
 
