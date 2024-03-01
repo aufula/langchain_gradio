@@ -26,7 +26,7 @@ def create_chatbot(model_name, seed_memory=None):
         )
     ]
     memory = seed_memory if seed_memory is not None else ConversationBufferMemory(memory_key="chat_history")
-    chat = ChatOpenAI(temperature=0, model_name=model_name)
+    chat = ChatOpenAI(model_name=model_name)
     agent_chain = initialize_agent(tools, chat, agent="conversational-react-description", verbose=True, memory=memory)
 
     return ChatBot(memory, agent_chain)

@@ -16,11 +16,6 @@ def set_api_key(api_key):
 def get_response(chatbot, api_key, selected_model, user_input, conversation_history=""):
     set_api_key(api_key)
 
-    # Preserve the memory of the current chatbot
-    preserved_memory = chatbot.memory
-
-    # Create a new chat agent based on the selected model and seed the memory
-    chatbot = chat_agent.create_chatbot(model_name=selected_model, seed_memory=preserved_memory)
 
     # Get raw chat response
     response = chatbot.agent.run(user_input).strip()
@@ -32,11 +27,10 @@ def get_response(chatbot, api_key, selected_model, user_input, conversation_hist
             prefix = "User: "
             background_color = "hsl(0, 0%, 40%)"  # Dark grey background
             text_color = "hsl(0, 0%, 100%)"  # White text
+            updated_conversation += f'<div style="color: {text_color}; background-color: {background_color}; margin: 5px; padding: 5px;">{prefix}{message.content}</div>'
         else:
             prefix = "Chatbot: "
-            background_color = "hsl(0, 0%, 95%)"  # White background
-            text_color = "hsl(0, 0%, 0%)"  # Black text
-        updated_conversation += f'<div style="color: {text_color}; background-color: {background_color}; margin: 5px; padding: 5px;">{prefix}{message.content}</div>'
+            updated_conversation += f'<div style="margin: 5px; padding: 5px;">{prefix}{message.content}</div>'
     return updated_conversation
 
 
@@ -61,8 +55,8 @@ def main():
         label="Enter your message",
     )
 
-    output_history = gr.outputs.HTML(
-        label="Updated Conversation",
+    output_history = gr.components.Markdown(
+        label="Updated Conversation"
     )
 
     chatbot = chat_agent.create_chatbot(model_name=model_selection.value)
@@ -78,7 +72,7 @@ def main():
         inputs=inputs,
         outputs=[output_history],
         title="",
-        description="A simple chatbot using GPT-4 and Gradio with conversation history",
+        description="",
         allow_flagging="never",
     )
 
